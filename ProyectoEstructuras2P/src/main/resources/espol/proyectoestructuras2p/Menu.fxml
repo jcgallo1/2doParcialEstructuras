@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="espol.proyectoestructuras2p.MenuController">
+  <children>
+    <ImageView fitHeight="1066.6666666666667" fitWidth="600.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../imagenes/Fondo.png" />
+      </image>
+    </ImageView>
+    <Button fx:id="botonJugar" layoutX="253.0" layoutY="144.0" mnemonicParsing="false" onAction="#switchToJugar" prefHeight="40.0" prefWidth="94.0" style="&#10;-fx-background-color: #7442A9;&#10;-fx-border-color: #000000;&#10;&#10;" text="JUGAR" textFill="BLACK">
+      <font>
+        <Font name="Baskerville Old Face" size="12.0" />
+      </font>
+    </Button>
+  </children>
+  <stylesheets>
+    <URL value="@../css/estiloMenu.css" />
+  </stylesheets>
+</AnchorPane>

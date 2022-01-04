@@ -1,4 +1,4 @@
-package com.mycompany.proyectoestructuras2p;
+package espol.proyectoestructuras2p;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
