@@ -37,6 +37,7 @@ public class SeleccionController {
     private RadioButton cpuRadio;
 
     private static char figuraJugador;
+    private static char figuraOponente;
 
     private static boolean jugadorEmpieza;
 
@@ -52,6 +53,7 @@ public class SeleccionController {
 
         } else {
             System.out.println("Figura del jugador: " + figuraJugador);
+            System.out.println("Figura del oponente: " + figuraOponente);
             System.out.println("Empieza el jugador?: " + jugadorEmpieza);
             App.switchScenes(event, "Juego", 600, 400);
             //App.setRoot("Juego");
@@ -99,6 +101,8 @@ public class SeleccionController {
             xRadio.setSelected(true);
         }
         setFiguraJugador('X');
+        setFiguraOponente('O');
+        
     }
 
     @FXML
@@ -111,6 +115,7 @@ public class SeleccionController {
             oRadio.setSelected(true);
         }
         setFiguraJugador('O');
+        setFiguraOponente('X');
     }
 
     //Permite ver que no haya campos sin seleccionar
@@ -135,5 +140,16 @@ public class SeleccionController {
     public static void setJugadorEmpieza(boolean jugadorEmpieza) {
         SeleccionController.jugadorEmpieza = jugadorEmpieza;
     }
+
+	public static char getFiguraOponente() {
+		return figuraOponente;
+	}
+
+	public static void setFiguraOponente(char figuraOponente) {
+		SeleccionController.figuraOponente = figuraOponente;
+	}
+    
+    
+    
 
 }

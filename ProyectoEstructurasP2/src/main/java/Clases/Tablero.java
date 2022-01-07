@@ -24,15 +24,25 @@ public class Tablero {
         cambiarTurno = true;
         gameOver = false;
         marcaG = VACIO;
-        EmpezarTablero();
+        empezarTablero();
     }
 
-    private void EmpezarTablero() {
+    private void empezarTablero() {
         for (int fila = 0; fila < ancho_t; fila++) {
             for (int col = 0; col < ancho_t; col++) {
                 tabla[fila][col] = VACIO;
             }
         }
+    }
+    
+    public void mostrarTablero() {
+    	
+    	for(int i = 0; i < ancho_t; i++) {
+    		System.out.println(this.getFichaT(i, 0).getFicha()+"  "+this.getFichaT(i, 1).getFicha()+"  "
+    				+this.getFichaT(i, 2).getFicha());
+    	}
+    	
+    	System.out.println("                  ");
     }
 
     public boolean ponerFicha(int fila, int col) {
@@ -47,6 +57,108 @@ public class Tablero {
         return true;
     }
 
+    
+    public int utilidadTablero(fichas fAJugar, fichas FOponente) {
+    	
+    	int utilidadT;
+    	int utilidadFichaAJugar = this.funcionUtilidadDe(fAJugar);
+    	int utilidadFichaOponente = this.funcionUtilidadDe(FOponente);
+    	
+    	utilidadT = utilidadFichaAJugar - utilidadFichaOponente;
+    	System.out.println("Utilidad de la figura: "+fAJugar.getFicha()+" en el tablero es: "+ utilidadT);
+    	return utilidadT;
+    	
+    	
+    	
+    	
+    }
+    
+    
+    
+    private int funcionUtilidadDe(fichas fACalcular) {
+    	
+    	char fichaUtil = fACalcular.getFicha();
+    	int utilidadTotal;
+    	//utilidad de las filas con la ficha a buscar
+    	int utilidadFilas = 0;
+    	
+    	for(int i = 0; i < ancho_t ; i++) {
+    		
+    			
+    			char fichaj0 = getFichaT(i,0).getFicha();
+    			char fichaj1 = getFichaT(i,1).getFicha();
+    			char fichaj2 = getFichaT(i,2).getFicha();
+    			
+    			boolean cd1 = (fichaj0 == fichaUtil) || (fichaj0 == '-');
+    			boolean cd2 = (fichaj1 == fichaUtil) || (fichaj1 == '-');
+    			boolean cd3 = (fichaj2 == fichaUtil) || (fichaj2 == '-');
+    			
+    			if(cd1 && cd2 && cd3) {
+    				utilidadFilas++;
+    			}
+    			
+    		
+    	}
+    	//utilidad de las columnas con la ficha a buscar
+    	int utilidadColumnas = 0;
+    	
+    	for(int j = 0; j < ancho_t ; j++) {
+    		
+			
+			char fichai0 = getFichaT(0,j).getFicha();
+			char fichai1 = getFichaT(1,j).getFicha();
+			char fichai2 = getFichaT(2,j).getFicha();
+			
+			boolean cd1 = (fichai0 == fichaUtil) || (fichai0 == '-');
+			boolean cd2 = (fichai1 == fichaUtil) || (fichai1 == '-');
+			boolean cd3 = (fichai2 == fichaUtil) || (fichai2 == '-');
+			
+			if(cd1 && cd2 && cd3) {
+				utilidadColumnas++;
+			}
+			
+		
+    	}
+    	
+    	
+    	//utilidad de las diagonales de  con la ficha a buscar
+    	int utilidadDiagonales = 0;
+    	
+    	char ficha00 = getFichaT(0,0).getFicha();
+		char ficha11 = getFichaT(1,1).getFicha();
+		char ficha22 = getFichaT(2,2).getFicha();
+		char ficha02 = getFichaT(0,2).getFicha();
+		char ficha20 = getFichaT(2,0).getFicha();
+		
+		boolean cd1 = (ficha00 == fichaUtil) || (ficha00 == '-');
+		boolean cd2 = (ficha11 == fichaUtil) || (ficha11 == '-');
+		boolean cd3 = (ficha22 == fichaUtil) || (ficha22 == '-');
+		boolean cd4 = (ficha02 == fichaUtil) || (ficha02 == '-');
+		boolean cd5 = (ficha20 == fichaUtil) || (ficha20 == '-');
+		
+		
+		if(cd1 && cd2 && cd3) {
+			utilidadDiagonales++;
+		}
+		if(cd4 && cd2 && cd5) {
+			utilidadDiagonales++;
+		}
+		
+		
+    	
+    	utilidadTotal = utilidadFilas + utilidadColumnas + utilidadDiagonales;
+    	return utilidadTotal;
+    	
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     private void winn(int fila, int col) {
         int filaSum = 0;
   

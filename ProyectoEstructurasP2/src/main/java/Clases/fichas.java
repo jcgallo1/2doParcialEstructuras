@@ -13,7 +13,7 @@ package Clases;
 public enum fichas {
     X('X'),
     O('O'),
-    VACIO(' ');
+    VACIO('-');
 
     private final char ficha;
 
