@@ -11,15 +11,20 @@ import static Clases.fichas.*;
  *
  * @author User
  */
-public class Tablero {
+public class Tablero implements Comparable<Tablero>{
     
     private final fichas[][] tabla;
     private fichas marcaG;
     private boolean cambiarTurno, gameOver;
     private final int ancho_t = 3;
-    private int movimientos = ancho_t * ancho_t;
+    private int movimientos = 9;
+    private int utilidad;
+    private int posibleX ;
+    private int posibleY ;
 
-    public Tablero() {
+    
+
+	public Tablero() {
         tabla = new fichas[ancho_t][ancho_t];
         cambiarTurno = true;
         gameOver = false;
@@ -27,6 +32,7 @@ public class Tablero {
         empezarTablero();
     }
 
+    //Método que empieza el tablero
     private void empezarTablero() {
         for (int fila = 0; fila < ancho_t; fila++) {
             for (int col = 0; col < ancho_t; col++) {
@@ -35,6 +41,30 @@ public class Tablero {
         }
     }
     
+    public void copiarTablero(Tablero vacio) {
+    	
+    	for (int fila = 0; fila < ancho_t; fila++) {
+            for (int col = 0; col < ancho_t; col++) {
+            	if(this.isCeldafichas(fila, col))
+                vacio.tabla[fila][col] = this.tabla[fila][col];
+            }
+        }
+    	
+    }
+    
+    public void copiarUtilidad(Tablero t2) {
+    	
+    	t2.utilidad = this.utilidad;
+    }
+    
+    public void copiarMov(Tablero t2) {
+    	
+    	t2.posibleX = this.posibleX;
+    	t2.posibleY = this.posibleY;
+    }
+    
+    
+    //Método que muestra el tablero en consola
     public void mostrarTablero() {
     	
     	for(int i = 0; i < ancho_t; i++) {
@@ -45,24 +75,25 @@ public class Tablero {
     	System.out.println("                  ");
     }
 
+    //Método que coloca una ficha en fila,columna
     public boolean ponerFicha(int fila, int col) {
         if (fila < 0 || fila >= ancho_t || col < 0 || col >= ancho_t
                 || isCeldafichas(fila, col) || gameOver) {
             return false;
         }
         movimientos--;
-        tabla[fila][col] = cambiarTurno ? X : O;
         cambiarJugador();
         winn(fila, col);
         return true;
     }
 
     
-    public int utilidadTablero(fichas fAJugar, fichas FOponente) {
+    //Método que obtiene la utilidad del tablero de " " ficha(primer parámetro).
+    public int utilidadTablero(fichas fAJugar, fichas fOponente) {
     	
     	int utilidadT;
     	int utilidadFichaAJugar = this.funcionUtilidadDe(fAJugar);
-    	int utilidadFichaOponente = this.funcionUtilidadDe(FOponente);
+    	int utilidadFichaOponente = this.funcionUtilidadDe(fOponente);
     	
     	utilidadT = utilidadFichaAJugar - utilidadFichaOponente;
     	System.out.println("Utilidad de la figura: "+fAJugar.getFicha()+" en el tablero es: "+ utilidadT);
@@ -74,7 +105,7 @@ public class Tablero {
     }
     
     
-    
+    //Método que obtiene la utilidad de cierta ficha en el tablero
     private int funcionUtilidadDe(fichas fACalcular) {
     	
     	char fichaUtil = fACalcular.getFicha();
@@ -82,16 +113,16 @@ public class Tablero {
     	//utilidad de las filas con la ficha a buscar
     	int utilidadFilas = 0;
     	
-    	for(int i = 0; i < ancho_t ; i++) {
+    	for(int i = 0; i < 3 ; i++) {
     		
     			
     			char fichaj0 = getFichaT(i,0).getFicha();
     			char fichaj1 = getFichaT(i,1).getFicha();
     			char fichaj2 = getFichaT(i,2).getFicha();
     			
-    			boolean cd1 = (fichaj0 == fichaUtil) || (fichaj0 == '-');
-    			boolean cd2 = (fichaj1 == fichaUtil) || (fichaj1 == '-');
-    			boolean cd3 = (fichaj2 == fichaUtil) || (fichaj2 == '-');
+    			boolean cd1 = (fichaj0 == fichaUtil || fichaj0 == '-');
+    			boolean cd2 = (fichaj1 == fichaUtil || fichaj1 == '-');
+    			boolean cd3 = (fichaj2 == fichaUtil || fichaj2 == '-');
     			
     			if(cd1 && cd2 && cd3) {
     				utilidadFilas++;
@@ -102,18 +133,18 @@ public class Tablero {
     	//utilidad de las columnas con la ficha a buscar
     	int utilidadColumnas = 0;
     	
-    	for(int j = 0; j < ancho_t ; j++) {
+    	for(int j = 0; j < 3 ; j++) {
     		
 			
 			char fichai0 = getFichaT(0,j).getFicha();
 			char fichai1 = getFichaT(1,j).getFicha();
 			char fichai2 = getFichaT(2,j).getFicha();
 			
-			boolean cd1 = (fichai0 == fichaUtil) || (fichai0 == '-');
-			boolean cd2 = (fichai1 == fichaUtil) || (fichai1 == '-');
-			boolean cd3 = (fichai2 == fichaUtil) || (fichai2 == '-');
+			boolean cd4 = (fichai0 == fichaUtil) || (fichai0 == '-');
+			boolean cd5 = (fichai1 == fichaUtil) || (fichai1 == '-');
+			boolean cd6 = (fichai2 == fichaUtil) || (fichai2 == '-');
 			
-			if(cd1 && cd2 && cd3) {
+			if(cd4 && cd5 && cd6) {
 				utilidadColumnas++;
 			}
 			
@@ -130,23 +161,28 @@ public class Tablero {
 		char ficha02 = getFichaT(0,2).getFicha();
 		char ficha20 = getFichaT(2,0).getFicha();
 		
-		boolean cd1 = (ficha00 == fichaUtil) || (ficha00 == '-');
-		boolean cd2 = (ficha11 == fichaUtil) || (ficha11 == '-');
-		boolean cd3 = (ficha22 == fichaUtil) || (ficha22 == '-');
-		boolean cd4 = (ficha02 == fichaUtil) || (ficha02 == '-');
-		boolean cd5 = (ficha20 == fichaUtil) || (ficha20 == '-');
+		boolean cd7 = (ficha00 == fichaUtil) || (ficha00 == '-');
+		boolean cd8 = (ficha11 == fichaUtil) || (ficha11 == '-');
+		boolean cd9 = (ficha22 == fichaUtil) || (ficha22 == '-');
+		boolean cd10 = (ficha02 == fichaUtil) || (ficha02 == '-');
+		boolean cd11= (ficha20 == fichaUtil) || (ficha20 == '-');
 		
 		
-		if(cd1 && cd2 && cd3) {
+		if(cd7 && cd8 && cd9) {
 			utilidadDiagonales++;
 		}
-		if(cd4 && cd2 && cd5) {
+		if(cd10 && cd8 && cd11) {
 			utilidadDiagonales++;
 		}
 		
 		
     	
     	utilidadTotal = utilidadFilas + utilidadColumnas + utilidadDiagonales;
+    	System.out.println("La figura: "+fichaUtil+"tiene:");
+    	System.out.println("Utilidad de filas: "+utilidadFilas);
+    	System.out.println("Utilidad de col: "+utilidadColumnas);
+    	System.out.println("Utilidad de diago: "+utilidadDiagonales);
+
     	return utilidadTotal;
     	
     	
@@ -158,16 +194,17 @@ public class Tablero {
     
     
     
-    
-    private void winn(int fila, int col) {
+    //Método que retorna si se acabó el juego de alguna forma en x,y celda cuando se coloco una ficha ahí
+    public boolean winn(int fila, int col) {
         int filaSum = 0;
+       
   
         for (int c = 0; c < ancho_t; c++) {
             filaSum += getFichaT(fila, c).getFicha();
         }
         if (calcularGanador(filaSum) != VACIO) {
             System.out.println(marcaG + " VICTORIA DE LA FILA " + fila);
-            return;
+            return true;
         }
 
         // Check column for winner.
@@ -177,7 +214,7 @@ public class Tablero {
         }
         if (calcularGanador(filaSum) != VACIO) {
             System.out.println(marcaG + " VICTORIA DE LA COLUMNA" + col);
-            return;
+            return true;
         }
 
         // Top-left to bottom-right diagonal.
@@ -188,7 +225,7 @@ public class Tablero {
         if (calcularGanador(filaSum) != VACIO) {
             System.out.println(marcaG + " GANADOR DE ARRIBA-IZQUIERDA "
                     + "FONDO-DERECHA-DIAGONAL");
-            return;
+            return true;
         }
 
         // Top-right to bottom-left diagonal.
@@ -200,16 +237,19 @@ public class Tablero {
         if (calcularGanador(filaSum) != VACIO) {
             System.out.println(marcaG + " GANADOR DE  ARRIBA-DERECHA DE "
                     + "FONDO-IZQUIERDA DIAGONAL.");
-            return;
+            return true;
         }
 
         if (!sinMovimientos()) {
             gameOver = true;
             System.out.println("SIN MOVIMIENTOS!");
+            return true;
         }
+        
+        return false;
     }
 
-
+//Método que calcula el ganador segun cual ficha tenga 3 fichas.
     private fichas calcularGanador(int filaSum) {
         int Xgana = X.getFicha() * ancho_t;
         int Ogana = O.getFicha() * ancho_t;
@@ -222,8 +262,31 @@ public class Tablero {
             marcaG = O;
             return O;
         }
+        gameOver = true;
+        marcaG = VACIO;
         return VACIO;
     }
+    
+    //Método que retorna la cantidad de espacios disponibles en el tablero
+    public int espaciosVacios() {
+    	int espacios = 0;
+    	for(int i= 0; i<ancho_t;i++) {
+    		for(int j=0; j<ancho_t;j++) {
+    			if(!this.isCeldafichas(i, j)) {
+    				espacios++;
+    			}
+    			
+    		}
+    		
+    	}
+    	
+    	return espacios;
+    	
+    }
+    
+    
+    //Método que llena 1 casilla si es que está disponible
+  
 
     private void cambiarJugador() {
         cambiarTurno = !cambiarTurno;
@@ -232,6 +295,10 @@ public class Tablero {
     
     public boolean sinMovimientos() {
         return movimientos > 0;
+    }
+    
+    public void restarMovimientos() {
+    	this.movimientos = movimientos-1;
     }
 
     public fichas getFichaT(int fila, int col) {
@@ -243,7 +310,28 @@ public class Tablero {
     }
 
     public void setFichaT(int fila, int column, fichas newFicha) {
-        tabla[fila][column] = newFicha;
+        this.tabla[fila][column] = newFicha;
+        
+    }
+    
+    
+    
+    public int[][] ubicarPosicion(fichas fichaABuscar){
+    	int[][] posiciones = new int[1][2];
+    	
+    	for (int fila = 0; fila < ancho_t; fila++) {
+            for (int col = 0; col < ancho_t; col++) {
+            		if(this.getFichaT(fila, col) == fichaABuscar) {
+            			posiciones[0][0] = fila;
+            			posiciones[0][1] = col;
+            		}
+            }
+        }
+    	
+    	
+    	return posiciones;
+    	
+    	
     }
 
     @Override
@@ -273,5 +361,35 @@ public class Tablero {
     public fichas getMarcaG() {
         return marcaG;
     }
+
+	public int getUtilidad() {
+		return utilidad;
+	}
+
+	public void setUtilidad(int utilidad) {
+		this.utilidad = utilidad;
+	}
+	
+	public int getPosibleX() {
+		return posibleX;
+	}
+
+	public void setPosibleX(int posibleX) {
+		this.posibleX = posibleX;
+	}
+	
+	public int getPosibleY() {
+		return posibleY;
+	}
+
+	public void setPosibleY(int posibleY) {
+		this.posibleY = posibleY;
+	}
+
+	@Override
+	public int compareTo(Tablero o) {
+		// TODO Auto-generated method stub
+		return this.getUtilidad() - o.getUtilidad();
+	}
 }
 

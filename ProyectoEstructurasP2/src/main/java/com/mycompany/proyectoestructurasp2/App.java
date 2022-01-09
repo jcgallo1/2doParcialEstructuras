@@ -47,6 +47,7 @@ public class App extends Application {
             scene = new Scene(root, SizeX, SizeY);
             stage.setScene(scene);
             stage.centerOnScreen();
+            stage.resizableProperty().setValue(Boolean.FALSE);
             stage.show();
         } catch (IOException e){
             System.out.println("File not found, Error al cargar pantalla");

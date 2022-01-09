@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructurasp2.JuegoController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.mycompany.proyectoestructurasp2.JuegoController">
   <children>
     <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
       <image>
@@ -28,5 +34,14 @@
       </rowConstraints>
     </GridPane>
     <Button layoutX="510.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="37.0" prefWidth="76.0" text="SALIR" />
+    <Label fx:id="buena" layoutX="24.0" layoutY="22.0" text="Buena ">
+      <font>
+        <Font name="Rockwell Extra Bold" size="15.0" fx:id="x1" />
+      </font>
+      <textFill>
+        <Color blue="0.432" green="0.000" red="0.600" fx:id="x2" />
+      </textFill>
+    </Label>
+    <Label fx:id="suerte" font="$x1" layoutX="21.0" layoutY="40.0" text="suerte!!" textFill="$x2" textOverrun="CLIP" />
   </children>
 </AnchorPane>
