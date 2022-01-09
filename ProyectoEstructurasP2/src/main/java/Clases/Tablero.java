@@ -299,6 +299,7 @@ public class Tablero implements Comparable<Tablero>{
     
     public void restarMovimientos() {
     	this.movimientos = movimientos-1;
+    	System.out.println(movimientos);
     }
 
     public fichas getFichaT(int fila, int col) {

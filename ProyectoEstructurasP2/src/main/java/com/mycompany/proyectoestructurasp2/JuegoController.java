@@ -84,6 +84,9 @@ public class JuegoController<T>{
         TreeComparator<Tablero> cmp = Tablero::compareTo;
         
         oponenteJuega(tablero,tableroJuego,espacios_ocupados, fichaO, fichaJ, cmp,empiezaJugador);
+        if(!empiezaJugador) {
+        	tableroJuego.restarMovimientos();
+        }
         
         for (i = 0; i < 3; i++) {
         	
@@ -135,9 +138,10 @@ public class JuegoController<T>{
             								System.out.println("Tablero resultante: ");
             								tableroJuego.mostrarTablero();
             								tableroJuego.restarMovimientos();
-            								cd = tableroJuego.winn(posiciones[0], posiciones[1]);
+            								espacios_ocupados[posiciones[0]][posiciones[1]] = 1;
+            								boolean cd1 = tableroJuego.winn(posiciones[0], posiciones[1]);
             								
-            								if(cd) {
+            								if(cd1) {
             										mostrarAlerta(Alert.AlertType.WARNING, "Juego Terminado! Ganador: "+tableroJuego.getMarcaG().getFicha());
             										volverMenu();	
             									
@@ -197,7 +201,7 @@ public class JuegoController<T>{
 		posiciones[1] = proximoY;
 		if(!empiezaJugador) {
 		tableroJuego.setFichaT(proximoX, proximoY, fj);
-		espacios[proximoX][proximoY] = 1;
+		
         Image image2 = new Image("imagenes/" + fj.getFicha() + ".png", 
 				50, 50, false, false);
 
