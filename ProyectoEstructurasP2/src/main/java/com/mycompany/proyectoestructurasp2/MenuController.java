@@ -17,7 +17,7 @@ public class MenuController {
     @FXML
     private void switchToJugar(ActionEvent event) throws IOException {
         //App.setRoot("Seleccion");
-        App.switchScenes(event, "Seleccion", 280, 400);
+        App.switchScenes(event, "Modo", 280, 400);
     }
     
     
