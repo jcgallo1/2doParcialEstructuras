@@ -25,15 +25,17 @@ public class Tree<T> {
     }
 
    
-    //Cambia el nodo del arbol
+    //Sets root
     public void setRoot(NodeTree<T> root) {
         this.root = root;
     }
 
+    //Gets root
     public NodeTree<T> getRoot() {
         return root;
     }
 
+    //Gets the first children ( Queue sorted by utility )
     public Tree<T> getChildrenByUtility(){
         return root.getChildren().peek();
     }

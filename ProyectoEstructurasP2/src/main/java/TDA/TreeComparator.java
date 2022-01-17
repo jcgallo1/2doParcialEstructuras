@@ -6,6 +6,8 @@ import java.util.Comparator;
  * A comparator for tree to compare its types
  * @param <T>
  */
+
+//Comparator for tree to compare it's types that depends on the use in certain class.
 @FunctionalInterface
 public interface TreeComparator<T> extends Comparator<Tree<T>> {
     

@@ -7,7 +7,7 @@ package Clases;
 
 /**
  *
- * @author User
+ * @author Grupo8
  */
 
 public enum fichas {
@@ -21,10 +21,12 @@ public enum fichas {
         this.ficha = ficha;
     }
 
+    //is this space a game token?
     public boolean isFicha() {
         return this != VACIO;
     }
 
+    //get the space's token
     public char getFicha() {
         return this.ficha;
     }

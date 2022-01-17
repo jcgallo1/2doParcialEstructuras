@@ -258,7 +258,7 @@ public class JuegoController<T>{
     }
     
     //Metodo que crea un arbol del tablero dado de las posibles posibilidades de colocar ficha del siguiente turno 
-    public void arbolOponente(Tree<Tablero> tableroActual, fichas fichaOponente, fichas fichaJugador, Comparator<Tree<Tablero>> cmp) {
+public void arbolOponente(Tree<Tablero> tableroActual, fichas fichaOponente, fichas fichaJugador, Comparator<Tree<Tablero>> cmp) {
     	
     	Tablero tableroA =  tableroActual.getRoot().getContent();
     	
@@ -328,7 +328,7 @@ public class JuegoController<T>{
     	
     	Tablero copiaTablero = tableroJugador;
     	
-    	boolean capaz2;
+    	
     	System.out.println("Raiz: ");
     	copiaTablero.mostrarTablero();
     	Tablero tableroCopia= new Tablero();

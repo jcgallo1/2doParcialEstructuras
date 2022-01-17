@@ -9,7 +9,7 @@ import static Clases.fichas.*;
 
 /**
  *
- * @author User
+ * @author Grupo8
  */
 public class Tablero implements Comparable<Tablero>{
     
@@ -19,10 +19,12 @@ public class Tablero implements Comparable<Tablero>{
     private final int ancho_t = 3;
     private int movimientos = 9;
     private int utilidad;
-    private int posibleX ;
+    private int posibleX ;    //posible posicion futura x,y
     private int posibleY ;
 
+
     
+    //start an empty board
 
 	public Tablero() {
         tabla = new fichas[ancho_t][ancho_t];
@@ -32,7 +34,7 @@ public class Tablero implements Comparable<Tablero>{
         empezarTablero();
     }
 
-    //Método que empieza el tablero
+    //Starts the board
     private void empezarTablero() {
         for (int fila = 0; fila < ancho_t; fila++) {
             for (int col = 0; col < ancho_t; col++) {
@@ -40,6 +42,11 @@ public class Tablero implements Comparable<Tablero>{
             }
         }
     }
+    
+    
+    
+    
+    //Method that copies a board into a empty board
     
     public void copiarTablero(Tablero vacio) {
     	
@@ -52,11 +59,14 @@ public class Tablero implements Comparable<Tablero>{
     	
     }
     
+    
+    //Method that copies a board's utility into another board.
     public void copiarUtilidad(Tablero t2) {
     	
     	t2.utilidad = this.utilidad;
     }
     
+    //Method that copies a board's possible future move into another board.
     public void copiarMov(Tablero t2) {
     	
     	t2.posibleX = this.posibleX;
@@ -64,7 +74,7 @@ public class Tablero implements Comparable<Tablero>{
     }
     
     
-    //Método que muestra el tablero en consola
+    //Method that shows actual board on the console.
     public void mostrarTablero() {
     	
     	for(int i = 0; i < ancho_t; i++) {
@@ -75,20 +85,11 @@ public class Tablero implements Comparable<Tablero>{
     	System.out.println("                  ");
     }
 
-    //Método que coloca una ficha en fila,columna
-    public boolean ponerFicha(int fila, int col) {
-        if (fila < 0 || fila >= ancho_t || col < 0 || col >= ancho_t
-                || isCeldafichas(fila, col) || gameOver) {
-            return false;
-        }
-        movimientos--;
-        cambiarJugador();
-        winn(fila, col);
-        return true;
-    }
+ 
+
 
     
-    //Método que obtiene la utilidad del tablero de " " ficha(primer parámetro).
+    //Methot that obtains the utility of  a token on the actual board.
     public int utilidadTablero(fichas fAJugar, fichas fOponente) {
     	
     	int utilidadT;
@@ -105,11 +106,12 @@ public class Tablero implements Comparable<Tablero>{
     }
     
     
-    //Método que obtiene la utilidad de cierta ficha en el tablero
+    //Method that obtains the actual utility of a token
     private int funcionUtilidadDe(fichas fACalcular) {
     	
     	char fichaUtil = fACalcular.getFicha();
     	int utilidadTotal;
+    	
     	//utilidad de las filas con la ficha a buscar
     	int utilidadFilas = 0;
     	
@@ -130,6 +132,7 @@ public class Tablero implements Comparable<Tablero>{
     			
     		
     	}
+    	
     	//utilidad de las columnas con la ficha a buscar
     	int utilidadColumnas = 0;
     	
@@ -194,7 +197,7 @@ public class Tablero implements Comparable<Tablero>{
     
     
     
-    //Método que retorna si se acabó el juego de alguna forma en x,y celda cuando se coloco una ficha ahí
+    //Method that checks if there was a winner after placing a token 
     public boolean winn(int fila, int col) {
         int filaSum = 0;
        
@@ -249,7 +252,7 @@ public class Tablero implements Comparable<Tablero>{
         return false;
     }
 
-//Método que calcula el ganador segun cual ficha tenga 3 fichas.
+//Method that calculates the winner according to which token has 3 of it type on the board..
     private fichas calcularGanador(int filaSum) {
         int Xgana = X.getFicha() * ancho_t;
         int Ogana = O.getFicha() * ancho_t;
@@ -267,7 +270,9 @@ public class Tablero implements Comparable<Tablero>{
         return VACIO;
     }
     
-    //Método que retorna la cantidad de espacios disponibles en el tablero
+    
+    
+    //Method that returns the number of available spaces on the board.
     public int espaciosVacios() {
     	int espacios = 0;
     	for(int i= 0; i<ancho_t;i++) {
@@ -285,12 +290,7 @@ public class Tablero implements Comparable<Tablero>{
     }
     
     
-    //Método que llena 1 casilla si es que está disponible
-  
-
-    private void cambiarJugador() {
-        cambiarTurno = !cambiarTurno;
-    }
+    
 
     
     public boolean sinMovimientos() {
