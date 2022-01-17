@@ -41,11 +41,11 @@ public class ModoController {
             //App.setRoot("Selecccion");
             
         } else if(PlayerVsPlayerRadio.isSelected()){           
-            App.switchScenes(event, "Seleccion", 280, 400);
+            App.switchScenes(event, "SeleccionPlayerVsPlayer", 280, 400);
             //App.setRoot("Selecccion");
             
         } else if(CPUVsCPURadio.isSelected()){           
-            App.switchScenes(event, "Seleccion", 280, 400);
+            App.switchScenes(event, "JuegoCPUvsCPU", 600, 400);
             //App.setRoot("Selecccion");
         }
         
