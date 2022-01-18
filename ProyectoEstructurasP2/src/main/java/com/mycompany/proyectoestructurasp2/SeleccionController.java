@@ -63,7 +63,7 @@ public class SeleccionController {
     @FXML
     private void switchToMenu(ActionEvent event) throws IOException {
         //App.setRoot("Menu");
-        App.switchScenes(event, "Modo", 280, 400);
+        App.switchScenes(event, "Menu", 600, 400);
     }
 
     //Acciones que se encargan de deseleccionar la otra opción si selecciona la contraria (ejem: si selecciona 'X' se deselecciona 'O')
